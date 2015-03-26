@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Rather</string>
+    <string name="parse_app_id">hCnPNPNulctj8Ze7m1H7AOLxRGaohO47aqZJu41o</string>
+    <string name="parse_client_key">PWPeDPvzs5upDKWdCFbe0tRbaMpFtzTm1IvyXtms</string>
+    <string name="facebook_app_id">1591625341094823</string>
+
+    <string-array name="my_facebook_permissions">
+        <item>public_profile</item>
+        <item>user_friends</item>
+    </string-array>
+
+    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_title_logged_in">Your are logged in as</string>
+    <string name="profile_logout_button_label">Log out</string>
+    <string name="profile_title_logged_out">You must be logged in to view your profile</string>
+    <string name="profile_login_button_label">Log in</string>
+
+    <string name="action_settings">Settings</string>
+
+</resources>
