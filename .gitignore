@@ -25,9 +25,6 @@ proguard/
 # Log Files
 *.log
 
-# Parse
-ParseLoginUI/
-
 # Other
 .idea/workspace.xml
 .idea/libraries
