@@ -31,5 +31,5 @@ proguard/
 .DS_Store
 .idea/gradle.xml
 .idea/misc.xml
-ParseLoginUI/PArseLoginUI.iml
+ParseLoginUI/ParseLoginUI.iml
 app/app.iml
