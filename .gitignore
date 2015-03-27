@@ -29,3 +29,7 @@ proguard/
 .idea/workspace.xml
 .idea/libraries
 .DS_Store
+.idea/gradle.xml
+.idea/misc.xml
+ParseLoginUI/PArseLoginUI.iml
+app/app.iml
