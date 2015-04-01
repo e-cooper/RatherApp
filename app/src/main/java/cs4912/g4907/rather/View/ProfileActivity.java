@@ -96,5 +96,6 @@ public class ProfileActivity extends Activity {
         emailTextView.setText("");
         nameTextView.setText("");
         loginOrLogoutButton.setText(R.string.profile_login_button_label);
+        //asdfasfasd
     }
 }
