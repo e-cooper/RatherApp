@@ -27,6 +27,11 @@
         </activity>
 
         <activity
+            android:name=".View.SurveyListActivity"
+            android:label="@string/title_activity_survey_list" >
+        </activity>
+
+        <activity
             android:name="com.parse.ui.ParseLoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" >

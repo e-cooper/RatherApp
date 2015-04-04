@@ -1,6 +1,7 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -67,7 +68,8 @@ public class ProfileActivity extends Activity {
 
         currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            showProfileLoggedIn();
+            Intent i = new Intent(this, SurveyListActivity.class);
+            startActivity(i);
         } else {
             showProfileLoggedOut();
         }
