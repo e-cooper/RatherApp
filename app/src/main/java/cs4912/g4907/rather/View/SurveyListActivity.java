@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -32,6 +34,11 @@ public class SurveyListActivity extends ListActivity {
     }
 
     @Override
+    protected void onListItemClick (ListView l, View v, int position, long id) {
+        Toast.makeText(this, "Clicked row " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_survey_list, menu);
         return true;
@@ -50,6 +57,11 @@ public class SurveyListActivity extends ListActivity {
                 break;
             }
 
+            case R.id.action_profile: {
+                viewProfile();
+                break;
+            }
+
             /*
             case R.id.action_new: {
                 newSurvey();
@@ -65,12 +77,16 @@ public class SurveyListActivity extends ListActivity {
         setListAdapter(mainAdapter);
     }
 
-    /*
+    /* TODO: Build new survey activity
     private void newSurvey() {
         Intent i = new Intent(this, NewSurveyActivity.class);
         startActivity(i);
     }
     */
+
+    private void viewProfile() {
+        // TODO: Go back to user's profile somehow
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
