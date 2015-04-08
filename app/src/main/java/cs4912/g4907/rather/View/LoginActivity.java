@@ -2,10 +2,7 @@ package cs4912.g4907.rather.View;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +13,11 @@ import com.parse.ui.ParseLoginBuilder;
 
 import cs4912.g4907.rather.R;
 
-public class ProfileActivity extends Activity {
+/**
+ * Shows the user profile. This simple activity can function regardless of whether the user
+ * is currently logged in.
+ */
+public class LoginActivity extends Activity {
     private static final int LOGIN_REQUEST = 0;
 
     private TextView titleTextView;
@@ -44,9 +45,12 @@ public class ProfileActivity extends Activity {
                     // User clicked to log out.
                     ParseUser.logOut();
                     currentUser = null;
-                    Intent i = new Intent(ProfileActivity.this, LoginActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
+                    showProfileLoggedOut();
+                } else {
+                    // User clicked to log in.
+                    ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
+                            LoginActivity.this);
+                    startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
                 }
             }
         });
@@ -58,10 +62,17 @@ public class ProfileActivity extends Activity {
 
         currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            showProfileLoggedIn();
+            Intent i = new Intent(this, SurveyListActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            showProfileLoggedOut();
         }
     }
 
+    /**
+     * Shows the profile of the given user.
+     */
     private void showProfileLoggedIn() {
         titleTextView.setText(R.string.profile_title_logged_in);
         emailTextView.setText(currentUser.getEmail());
@@ -72,25 +83,13 @@ public class ProfileActivity extends Activity {
         loginOrLogoutButton.setText(R.string.profile_logout_button_label);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    /**
+     * Show a message asking the user to log in, toggle login/logout button text.
+     */
+    private void showProfileLoggedOut() {
+        titleTextView.setText(R.string.profile_title_logged_out);
+        emailTextView.setText("");
+        nameTextView.setText("");
+        loginOrLogoutButton.setText(R.string.profile_login_button_label);
     }
 }
