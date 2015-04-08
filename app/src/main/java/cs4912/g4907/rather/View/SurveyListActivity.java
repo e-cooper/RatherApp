@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseUser;
 
 import cs4912.g4907.rather.R;
 
@@ -19,15 +18,15 @@ import cs4912.g4907.rather.R;
  * Created by Eli on 4/4/2015.
  */
 public class SurveyListActivity extends ListActivity {
-    private ParseQueryAdapter<ParseUser> mainAdapter;
+    private ParseQueryAdapter<Survey> mainAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getListView().setClickable(true);
 
-        mainAdapter = new ParseQueryAdapter<ParseUser>(this, ParseUser.class);
-        mainAdapter.setTextKey("name");
+        mainAdapter = new ParseQueryAdapter<Survey>(this, Survey.class);
+        mainAdapter.setTextKey("title");
 
         // Default view is all surveys
         setListAdapter(mainAdapter);
@@ -62,12 +61,10 @@ public class SurveyListActivity extends ListActivity {
                 break;
             }
 
-            /*
             case R.id.action_new: {
                 newSurvey();
                 break;
             }
-            */
         }
         return super.onOptionsItemSelected(item);
     }
@@ -77,12 +74,10 @@ public class SurveyListActivity extends ListActivity {
         setListAdapter(mainAdapter);
     }
 
-    /* TODO: Build new survey activity
     private void newSurvey() {
         Intent i = new Intent(this, NewSurveyActivity.class);
         startActivity(i);
     }
-    */
 
     private void viewProfile() {
         Intent i = new Intent(this, ProfileActivity.class);
