@@ -37,8 +37,6 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Parse.initialize(this, getString(R.string.parse_app_id) , getString(R.string.parse_client_key));
-
         titleTextView = (TextView) findViewById(R.id.profile_title);
         emailTextView = (TextView) findViewById(R.id.profile_email);
         nameTextView = (TextView) findViewById(R.id.profile_name);
