@@ -85,7 +85,8 @@ public class SurveyListActivity extends ListActivity {
     */
 
     private void viewProfile() {
-        // TODO: Go back to user's profile somehow
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
     }
 
     @Override
