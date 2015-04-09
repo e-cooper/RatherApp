@@ -63,6 +63,10 @@
             android:name=".View.NewSurveyActivity"
             android:label="@string/title_activity_new_survey" >
         </activity>
+        <activity
+            android:name=".View.NewQuestionActivity"
+            android:label="@string/title_activity_new_question" >
+        </activity>
     </application>
 
 </manifest>

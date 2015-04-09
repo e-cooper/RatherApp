@@ -2,6 +2,7 @@ package cs4912.g4907.rather.Model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 /**
@@ -44,6 +45,11 @@ public class Survey extends ParseObject {
 
     public void setPassword(String password) {
         put("password", password);
+    }
+
+    public ParseQuery<ParseObject> getQuestions(ParseObject survey) {
+        ParseQuery<ParseObject> questionsQuery = ParseQuery.getQuery("Question");
+        return questionsQuery.whereEqualTo("survey", survey);
     }
 
 }

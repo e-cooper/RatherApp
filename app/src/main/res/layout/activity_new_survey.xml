@@ -22,6 +22,7 @@
         android:id="@+id/new_survey_password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:hint="@string/new_survey_password"/>
 
     <Button
