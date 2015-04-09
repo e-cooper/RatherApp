@@ -25,5 +25,10 @@
     <string name="title_activity_profile">ProfileActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_new_survey">Create Survey</string>
+    <string name="new_survey_name">Name</string>
+    <string name="new_survey_privacy">Public</string>
+    <string name="new_survey_password">Password</string>
+    <string name="new_survey_button_label">Create Survey</string>
 
 </resources>
