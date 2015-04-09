@@ -4,6 +4,11 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Eli on 4/8/2015.
  */
@@ -44,6 +49,10 @@ public class Survey extends ParseObject {
 
     public void setPassword(String password) {
         put("password", password);
+    }
+
+    public List<Question> getQuestions() {
+        return getList("questions");
     }
 
 }
