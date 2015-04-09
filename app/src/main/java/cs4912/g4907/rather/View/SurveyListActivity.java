@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.parse.ParseQueryAdapter;
 
+import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
 
 /**

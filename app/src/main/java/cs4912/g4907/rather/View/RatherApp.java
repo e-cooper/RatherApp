@@ -4,6 +4,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
 
 /**

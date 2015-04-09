@@ -1,8 +1,6 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +14,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
 
 public class NewSurveyActivity extends Activity {
