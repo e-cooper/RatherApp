@@ -33,6 +33,7 @@
     <string name="title_activity_new_question">Create Question</string>
     <string name="new_question_survey_name"></string>
     <string name="new_question_content">Question</string>
-    <string name="new_question_button_label">Create Question</string>
+    <string name="new_question_add_button_label">Add Another Question</string>
+    <string name="new_question_finish_button_label">Finish Adding Questions</string>
 
 </resources>

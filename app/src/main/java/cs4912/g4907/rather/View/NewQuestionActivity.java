@@ -29,14 +29,15 @@ public class NewQuestionActivity extends Activity {
     private final ParseObject[] survey = new ParseObject[1];
     private TextView surveyTextView;
     private EditText contentField;
-    private Button createNewQuestionButton;
+    private Button addNewQuestionButton;
+    private Button finishNewQuestionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         question = new Question();
 
         Intent i = getIntent();
-        String surveyId = i.getStringExtra("survey_id");
+        final String surveyId = i.getStringExtra("survey_id");
 
         ParseQuery surveyQuery = new ParseQuery("Survey");
         surveyQuery.whereEqualTo("objectId", surveyId);
@@ -60,9 +61,35 @@ public class NewQuestionActivity extends Activity {
 
         surveyTextView = (TextView) findViewById(R.id.new_question_survey_label);
         contentField = (EditText) findViewById(R.id.new_question_content_input);
-        createNewQuestionButton = (Button) findViewById(R.id.create_question);
+        addNewQuestionButton = (Button) findViewById(R.id.add_question);
+        finishNewQuestionButton = (Button) findViewById(R.id.finish_question);
 
-        createNewQuestionButton.setOnClickListener(new View.OnClickListener() {
+        addNewQuestionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setContent(contentField.getText().toString());
+
+                question.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            setResult(RESULT_OK);
+                            Intent i = new Intent(NewQuestionActivity.this, NewQuestionActivity.class);
+                            i.putExtra("survey_id", surveyId);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Error saving: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        finishNewQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 question.setContent(contentField.getText().toString());
