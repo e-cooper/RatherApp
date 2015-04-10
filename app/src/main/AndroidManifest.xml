@@ -67,6 +67,14 @@
             android:name=".View.NewQuestionActivity"
             android:label="@string/title_activity_new_question" >
         </activity>
+        <activity
+            android:name=".View.SurveyDetailsActivity"
+            android:label="@string/title_activity_survey_details"
+            android:parentActivityName=".View.SurveyListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cs4912.g4907.rather.View.SurveyListActivity" />
+        </activity>
     </application>
 
 </manifest>

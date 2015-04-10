@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,8 +35,14 @@ public class SurveyListActivity extends ListActivity {
     }
 
     @Override
-    protected void onListItemClick (ListView l, View v, int position, long id) {
-        Toast.makeText(this, "Clicked row " + position, Toast.LENGTH_SHORT).show();
+    protected void onListItemClick ( ListView l, View v, int position, long id) {
+//        Survey survey = (Survey) adapter.getItemAtPosition(position);
+
+        Intent i = new Intent(this, SurveyDetailsActivity.class);
+        i.putExtra("survey_id", mainAdapter.getItem(position).getObjectId());
+        startActivity(i);
+
+//        Toast.makeText(this, mainAdapter.getItem(position).getString("title") , Toast.LENGTH_SHORT).show();
     }
 
     @Override

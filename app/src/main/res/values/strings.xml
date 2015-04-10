@@ -36,4 +36,9 @@
     <string name="new_question_add_button_label">Add Another Question</string>
     <string name="new_question_finish_button_label">Finish Adding Questions</string>
 
+    <string name="title_activity_survey_details">Survey details</string>
+    <string name="survey_details_name_label">"Survey Name: "</string>
+    <string name="survey_details_author_label">"Author: "</string>
+    <string name="survey_details_privacy_label">"Privacy: "</string>
+
 </resources>
