@@ -1,6 +1,7 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +52,9 @@ public class NewSurveyActivity extends Activity {
                     public void done(ParseException e) {
                         if (e == null) {
                             setResult(RESULT_OK);
+                            Intent i = new Intent(NewSurveyActivity.this, NewQuestionActivity.class);
+                            i.putExtra("survey_id", survey.getObjectId());
+                            startActivity(i);
                             finish();
                         } else {
                             Toast.makeText(
