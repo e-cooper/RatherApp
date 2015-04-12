@@ -84,14 +84,33 @@ public class SurveyDetailsActivity extends Activity {
                 setResult(RESULT_OK, returnIntent);
                 finish();
                 return true;
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            case R.id.action_settings:
-                return true;
+
+            case R.id.action_profile: {
+                viewProfile();
+                break;
+            }
+
+            case R.id.action_respond: {
+                newResponse();
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void viewProfile() {
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
+    }
+
+    private void newResponse() {
+        Intent g = getIntent();
+        final String surveyId = g.getStringExtra("survey_id");
+
+        Intent i = new Intent(this, ResponseActivity.class);
+        i.putExtra("survey_id", surveyId);
+        startActivity(i);
     }
 
     private void setFields(Survey survey){
@@ -107,7 +126,6 @@ public class SurveyDetailsActivity extends Activity {
                     "Error: " + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
-//        Log.i("survey details debug",author);
         surveyAuthorTextView.setText(author);
         surveyPrivacyTextView.setText(survey.getPrivacy()?"Public":"Private");
     }

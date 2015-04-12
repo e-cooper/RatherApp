@@ -44,5 +44,11 @@
     <string name="survey_details_privacy_label">"Privacy: "</string>
 
     <string name="private_survey_password_message">"Enter Password: "</string>
+    <string name="title_activity_response">ResponseActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

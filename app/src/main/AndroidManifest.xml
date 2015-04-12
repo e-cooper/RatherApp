@@ -74,6 +74,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cs4912.g4907.rather.View.SurveyListActivity" />
         </activity>
+        <activity
+            android:name=".View.ResponseActivity"
+            android:label="@string/title_activity_response" >
+        </activity>
     </application>
 
 </manifest>
