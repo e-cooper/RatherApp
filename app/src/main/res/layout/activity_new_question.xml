@@ -10,6 +10,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/new_question_survey_label" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_question_spinner"
+        android:layout_gravity="right" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
