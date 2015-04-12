@@ -41,4 +41,6 @@
     <string name="survey_details_author_label">"Author: "</string>
     <string name="survey_details_privacy_label">"Privacy: "</string>
 
+    <string name="private_survey_password_message">"Enter Password: "</string>
+
 </resources>
