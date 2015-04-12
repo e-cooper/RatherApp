@@ -16,7 +16,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+
+import java.util.Date;
 
 import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
@@ -33,7 +37,14 @@ public class SurveyListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         getListView().setClickable(true);
 
-        mainAdapter = new ParseQueryAdapter<Survey>(this, Survey.class);
+        mainAdapter = new ParseQueryAdapter<>(this, new ParseQueryAdapter.QueryFactory<Survey>() {
+            public ParseQuery create() {
+                ParseQuery query = new ParseQuery("Survey");
+                query.whereEqualTo("published", true);
+                query.whereGreaterThanOrEqualTo("expirationDate", new Date());
+                return query;
+            }
+        });
         mainAdapter.setTextKey("title");
 
         // Default view is all surveys
@@ -42,6 +53,7 @@ public class SurveyListActivity extends ListActivity {
 
     @Override
     protected void onListItemClick ( ListView l, View v, int position, long id) {
+
         final Survey survey = mainAdapter.getItem(position);
         if(!survey.getPrivacy()) {
             // get private_survey_password_prompt.xml view
