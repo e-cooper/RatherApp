@@ -17,6 +17,22 @@ public class Question extends ParseObject {
         put("content", content);
     }
 
+    public Number getOrder() {
+        return getNumber("order");
+    }
+
+    public void setOrder(Number order) {
+        put("order", order);
+    }
+
+    public ParseObject getQuestionType() {
+        return getParseObject("questionType");
+    }
+
+    public void setQuestionType(ParseObject questionType) {
+        put("questionType", questionType);
+    }
+
     public ParseObject getSurvey() {
         return getParseObject("survey");
     }
