@@ -1,13 +1,18 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +26,7 @@ import cs4912.g4907.rather.R;
  */
 public class SurveyListActivity extends ListActivity {
     private ParseQueryAdapter<Survey> mainAdapter;
+//    private EditText private_survey_password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,13 +42,54 @@ public class SurveyListActivity extends ListActivity {
 
     @Override
     protected void onListItemClick ( ListView l, View v, int position, long id) {
-//        Survey survey = (Survey) adapter.getItemAtPosition(position);
+        final Survey survey = mainAdapter.getItem(position);
+        if(!survey.getPrivacy()) {
+            // get private_survey_password_prompt.xml view
+            LayoutInflater li = LayoutInflater.from(this);
+            View promptsView = li.inflate(R.layout.private_survey_password_prompt, null);
 
-        Intent i = new Intent(this, SurveyDetailsActivity.class);
-        i.putExtra("survey_id", mainAdapter.getItem(position).getObjectId());
-        startActivity(i);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-//        Toast.makeText(this, mainAdapter.getItem(position).getString("title") , Toast.LENGTH_SHORT).show();
+            // set private_survey_password_prompt.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView);
+
+            final EditText userInput = (EditText) promptsView
+                    .findViewById(R.id.editTextDialogUserInput);
+
+            // set dialog message
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    if(userInput.getText().toString().equals(survey.getPassword())){
+                                        Intent i = new Intent(SurveyListActivity.this, SurveyDetailsActivity.class);
+                                        i.putExtra("survey_id", survey.getObjectId());
+                                        startActivity(i);
+                                    }
+                                    else{
+                                        Toast.makeText(SurveyListActivity.this, "Sorry, that's the wrong password" , Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
+        }
+        else {
+            Intent i = new Intent(this, SurveyDetailsActivity.class);
+            i.putExtra("survey_id", survey.getObjectId());
+            startActivity(i);
+        }
     }
 
     @Override
