@@ -2,6 +2,7 @@ package cs4912.g4907.rather.View;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class SurveyDetailsActivity extends Activity {
     private TextView surveyNameTextView;
     private TextView surveyAuthorTextView;
     private TextView surveyPrivacyTextView;
+    private String surveyListAdapterInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class SurveyDetailsActivity extends Activity {
 
         Intent i = getIntent();
         final String surveyId = i.getStringExtra("survey_id");
+
+        surveyListAdapterInfo = i.getStringExtra("adapter_info");
 
         ParseQuery surveyQuery = new ParseQuery("Survey");
         surveyQuery.whereEqualTo("objectId", surveyId);
@@ -63,15 +67,28 @@ public class SurveyDetailsActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("adapter_info",surveyListAdapterInfo);
+        setResult(RESULT_OK, returnIntent); //This will help us return to the proper screen on SurveyListActivity, either My Surveys or Available Surveys
+        super.onBackPressed();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("adapter_info",surveyListAdapterInfo);
+                setResult(RESULT_OK, returnIntent);
+                finish();
+                return true;
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            case R.id.action_settings:
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

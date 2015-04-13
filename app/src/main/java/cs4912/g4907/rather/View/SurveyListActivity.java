@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 
 import java.util.Date;
 
@@ -30,6 +31,11 @@ import cs4912.g4907.rather.R;
  */
 public class SurveyListActivity extends ListActivity {
     private ParseQueryAdapter<Survey> mainAdapter;
+    private ParseQueryAdapter<Survey> mySurveysAdapter;
+    private ParseQueryAdapter<Survey> availableSurveysAdapter;
+    private Menu myMenu;
+    private String adapterFlag;
+
 //    private EditText private_survey_password;
 
     @Override
@@ -37,7 +43,7 @@ public class SurveyListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         getListView().setClickable(true);
 
-        mainAdapter = new ParseQueryAdapter<>(this, new ParseQueryAdapter.QueryFactory<Survey>() {
+        availableSurveysAdapter = new ParseQueryAdapter<>(this, new ParseQueryAdapter.QueryFactory<Survey>() {
             public ParseQuery create() {
                 ParseQuery query = new ParseQuery("Survey");
                 query.whereEqualTo("published", true);
@@ -45,10 +51,18 @@ public class SurveyListActivity extends ListActivity {
                 return query;
             }
         });
-        mainAdapter.setTextKey("title");
+        availableSurveysAdapter.setTextKey("title");
 
-        // Default view is all surveys
-        setListAdapter(mainAdapter);
+        mySurveysAdapter = new ParseQueryAdapter<>(this, new ParseQueryAdapter.QueryFactory<Survey>() {
+            public ParseQuery create() {
+                ParseQuery query = new ParseQuery("Survey");
+                query.whereEqualTo("author", ParseUser.getCurrentUser());
+                return query;
+            }
+        });
+        mySurveysAdapter.setTextKey("title");
+
+        displayAvailableSurveys();
     }
 
     @Override
@@ -77,7 +91,8 @@ public class SurveyListActivity extends ListActivity {
                                     if(userInput.getText().toString().equals(survey.getPassword())){
                                         Intent i = new Intent(SurveyListActivity.this, SurveyDetailsActivity.class);
                                         i.putExtra("survey_id", survey.getObjectId());
-                                        startActivity(i);
+                                        addAdapterInfo(i);
+                                        startActivityForResult(i, 1);
                                     }
                                     else{
                                         Toast.makeText(SurveyListActivity.this, "Sorry, that's the wrong password" , Toast.LENGTH_SHORT).show();
@@ -100,13 +115,27 @@ public class SurveyListActivity extends ListActivity {
         else {
             Intent i = new Intent(this, SurveyDetailsActivity.class);
             i.putExtra("survey_id", survey.getObjectId());
-            startActivity(i);
+            addAdapterInfo(i);
+            startActivityForResult(i, 1);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_survey_list, menu);
+        myMenu = menu;
+        if(adapterFlag.equals("available_surveys")){
+            myMenu.findItem(R.id.action_available_surveys).setVisible(false);
+            myMenu.findItem(R.id.action_available_surveys).setEnabled(false);
+            myMenu.findItem(R.id.action_my_surveys).setVisible(true);
+            myMenu.findItem(R.id.action_my_surveys).setEnabled(true);
+        }
+        else if(adapterFlag.equals("my_surveys")){
+            myMenu.findItem(R.id.action_available_surveys).setVisible(true);
+            myMenu.findItem(R.id.action_available_surveys).setEnabled(true);
+            myMenu.findItem(R.id.action_my_surveys).setVisible(false);
+            myMenu.findItem(R.id.action_my_surveys).setEnabled(false);
+        }
         return true;
     }
 
@@ -116,6 +145,7 @@ public class SurveyListActivity extends ListActivity {
 	 */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             case R.id.action_refresh: {
@@ -130,6 +160,16 @@ public class SurveyListActivity extends ListActivity {
 
             case R.id.action_new: {
                 newSurvey();
+                break;
+            }
+
+            case R.id.action_available_surveys: {
+                displayAvailableSurveys();
+                break;
+            }
+
+            case R.id.action_my_surveys: {
+                displayMySurveys();
                 break;
             }
         }
@@ -151,12 +191,61 @@ public class SurveyListActivity extends ListActivity {
         startActivity(i);
     }
 
+    private void displayAvailableSurveys() {
+        adapterFlag = "available_surveys";
+        setTitle(R.string.action_available_surveys);
+        mainAdapter = availableSurveysAdapter;
+        mainAdapter.loadObjects();
+        setListAdapter(mainAdapter);
+        if(myMenu!=null) {
+            myMenu.findItem(R.id.action_available_surveys).setVisible(false);
+            myMenu.findItem(R.id.action_available_surveys).setEnabled(false);
+            myMenu.findItem(R.id.action_my_surveys).setVisible(true);
+            myMenu.findItem(R.id.action_my_surveys).setEnabled(true);
+        }
+    }
+
+    private void displayMySurveys() {
+        adapterFlag = "my_surveys";
+        setTitle(R.string.action_my_surveys);
+        mainAdapter = mySurveysAdapter;
+        mainAdapter.loadObjects();
+        setListAdapter(mainAdapter);
+        //to disable my surveys button in menu
+        if(myMenu!=null) {
+            myMenu.findItem(R.id.action_available_surveys).setVisible(true);
+            myMenu.findItem(R.id.action_available_surveys).setEnabled(true);
+            myMenu.findItem(R.id.action_my_surveys).setVisible(false);
+            myMenu.findItem(R.id.action_my_surveys).setEnabled(false);
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1){
+            if(resultCode == RESULT_OK){
+                String adapterInfo = data.getStringExtra("adapter_info");
+                if(adapterInfo.equals("available_surveys")){
+                    displayAvailableSurveys();
+                }
+                else if(adapterInfo.equals("my_surveys")){
+                    displayMySurveys();
+                }
+            }
+        }
+
+        //This doesn't seem to be working
         if (resultCode == Activity.RESULT_OK) {
             // If a new survey has been added, update
             // the list of surveys
             updateSurveyList();
         }
+    }
+
+    // this method helps ensure that returning from survey details to survey list is seamless,
+    // i.e, if I return from details of my survey I and brought back to a list of my surveys
+    // as opposed to available surveys
+    private void addAdapterInfo(Intent intent){
+        intent.putExtra("adapter_info",adapterFlag);
     }
 }

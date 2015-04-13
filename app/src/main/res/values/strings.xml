@@ -15,11 +15,13 @@
     <string name="profile_title_logged_out">You must be logged in to view your profile</string>
     <string name="profile_login_button_label">Log in</string>
     
-    <string name="title_activity_survey_list">Surveys</string>
+    <!--<string name="title_activity_survey_list">Surveys</string>-->
     <string name="menu_title">Surveys</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_new">New Survey</string>
     <string name="action_profile">My Profile</string>
+    <string name="action_my_surveys">My Surveys</string>
+    <string name="action_available_surveys">Available Surveys</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_profile">ProfileActivity</string>

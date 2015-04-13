@@ -8,6 +8,14 @@
         app:showAsAction="ifRoom"
         android:title="@string/action_profile"/>
     <item
+        android:id="@+id/action_my_surveys"
+        app:showAsAction="ifRoom"
+        android:title="@string/action_my_surveys"/>
+    <item
+        android:id="@+id/action_available_surveys"
+        app:showAsAction="ifRoom"
+        android:title="@string/action_available_surveys"/>
+    <item
         android:id="@+id/action_refresh"
         app:showAsAction="ifRoom"
         android:title="@string/action_refresh">

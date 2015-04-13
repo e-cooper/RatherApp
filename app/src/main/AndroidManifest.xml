@@ -26,8 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.SurveyListActivity"
-            android:label="@string/title_activity_survey_list" >
+            android:name=".View.SurveyListActivity" >
         </activity>
         <activity
             android:name="com.parse.ui.ParseLoginActivity"
