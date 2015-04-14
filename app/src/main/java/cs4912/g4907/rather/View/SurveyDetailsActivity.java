@@ -11,17 +11,24 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.util.List;
+
+import cs4912.g4907.rather.Model.ResponseSet;
 import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
 
 public class SurveyDetailsActivity extends Activity {
 
+    private ResponseSet responseSet;
+    private int[] questionCount = new int[1];
     private TextView surveyNameTextView;
     private TextView surveyAuthorTextView;
     private TextView surveyPrivacyTextView;
@@ -105,12 +112,77 @@ public class SurveyDetailsActivity extends Activity {
     }
 
     private void newResponse() {
+        responseSet = new ResponseSet();
+        responseSet.setComplete(false);
+        responseSet.setUser(ParseUser.getCurrentUser());
+        Intent g = getIntent();
+        final String surveyId = g.getStringExtra("survey_id");
+        ParseQuery surveyQuery = new ParseQuery("Survey");
+        surveyQuery.whereEqualTo("objectId", surveyId);
+        surveyQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                                             public void done(ParseObject object, ParseException e) {
+                                                 if (object == null) {
+                                                     finish();
+                                                     Toast.makeText(
+                                                             getApplicationContext(),
+                                                             "Error: " + e.getMessage(),
+                                                             Toast.LENGTH_SHORT).show();
+                                                 } else {
+                                                     responseSet.put("survey", object);
+                                                     // Number of questions
+                                                     ParseQuery<ParseObject> query =
+                                                             ParseQuery.getQuery("Question");
+                                                     query.whereEqualTo("survey", object);
+                                                     questionCount[0] = 0;
+                                                     try {
+                                                         questionCount[0] = query.count();
+                                                     } catch (ParseException err) {
+                                                         Toast.makeText(
+                                                                 getApplicationContext(),
+                                                                 "Error counting: " +
+                                                                         err.getMessage(),
+                                                                 Toast.LENGTH_SHORT).show();
+                                                     }
+                                                     saveResponseSet();
+                                                 }
+                                             }
+                                         });
+    }
+
+    private void saveResponseSet() {
+        responseSet.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    setResult(RESULT_OK);
+                    startQuestions();
+                } else {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Error saving: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void startQuestions() {
         Intent g = getIntent();
         final String surveyId = g.getStringExtra("survey_id");
 
-        Intent i = new Intent(this, ResponseActivity.class);
-        i.putExtra("survey_id", surveyId);
-        startActivity(i);
+        if (questionCount[0] > 0) {
+            Intent i = new Intent(SurveyDetailsActivity.this, ResponseActivity.class);
+            i.putExtra("response_set_id", responseSet.getObjectId());
+            i.putExtra("survey_id", surveyId);
+            i.putExtra("question_order", 0);
+            i.putExtra("question_count", questionCount[0]);
+            startActivity(i);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.survey_no_questions,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setFields(Survey survey){

@@ -44,7 +44,7 @@ public class NewQuestionActivity extends Activity {
         Intent i = getIntent();
         final String surveyId = i.getStringExtra("survey_id");
         final Number[] questionOrder = new Number[1];
-        questionOrder[0] = i.getIntExtra("order_number", 0);
+        questionOrder[0] = i.getIntExtra("order_number", 1);
 
         ParseQuery surveyQuery = new ParseQuery("Survey");
         surveyQuery.whereEqualTo("objectId", surveyId);

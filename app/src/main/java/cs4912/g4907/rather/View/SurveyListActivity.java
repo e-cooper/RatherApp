@@ -36,8 +36,6 @@ public class SurveyListActivity extends ListActivity {
     private Menu myMenu;
     private String adapterFlag;
 
-//    private EditText private_survey_password;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +68,11 @@ public class SurveyListActivity extends ListActivity {
 
         final Survey survey = mainAdapter.getItem(position);
         if(!survey.getPrivacy()) {
-            // get private_survey_password_prompt.xml view
             LayoutInflater li = LayoutInflater.from(this);
             View promptsView = li.inflate(R.layout.private_survey_password_prompt, null);
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-            // set private_survey_password_prompt.xml to alertdialog builder
             alertDialogBuilder.setView(promptsView);
 
             final EditText userInput = (EditText) promptsView

@@ -73,9 +73,9 @@ public class Survey extends ParseObject {
         put("expirationDate", date);
     }
 
-    public ParseQuery<ParseObject> getQuestions(ParseObject survey) {
+    public ParseQuery<ParseObject> getQuestions() {
         ParseQuery<ParseObject> questionsQuery = ParseQuery.getQuery("Question");
-        return questionsQuery.whereEqualTo("survey", survey);
+        return questionsQuery.whereEqualTo("survey", this);
     }
 
 }
