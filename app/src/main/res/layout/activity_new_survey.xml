@@ -8,15 +8,15 @@
         android:id="@+id/new_survey_name_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_survey_name"></EditText>
+        android:hint="@string/new_survey_name"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Public"
+        android:text="@string/new_survey_privacy"
         android:id="@+id/new_survey_privacy_input"
-        android:layout_gravity="left"
-        android:checked="true" />
+        android:layout_gravity="start"
+        android:checked="true"/>
 
     <EditText
         android:id="@+id/new_survey_password_input"
