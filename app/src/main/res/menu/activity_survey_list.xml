@@ -23,7 +23,7 @@
     <item
         android:id="@+id/action_new"
         app:showAsAction="ifRoom"
-        android:title="@string/action_new">
+        android:title="@string/action_new_survey">
     </item>
 
 </menu>

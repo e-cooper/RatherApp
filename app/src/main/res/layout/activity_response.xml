@@ -17,14 +17,14 @@
         android:layout_height="wrap_content"
         android:text="Yes"
         android:id="@+id/response_button_yes"
-        android:layout_gravity="left|center_vertical" />
+        android:layout_gravity="right|center_vertical" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No"
         android:id="@+id/response_button_no"
-        android:layout_gravity="right|center_vertical" />
+        android:layout_gravity="left|center_vertical" />
 
     <Button
         android:layout_width="wrap_content"

@@ -23,8 +23,11 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Calendar;
+
 import cs4912.g4907.rather.Model.Question;
 import cs4912.g4907.rather.Model.QuestionType;
+import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
 
 public class NewQuestionActivity extends Activity {
@@ -140,6 +143,20 @@ public class NewQuestionActivity extends Activity {
             public void onClick(View v) {
                 question.setOrder(questionOrder[0]);
                 question.setContent(contentField.getText().toString());
+
+                //Publish the survey
+                Survey parentSurvey;
+                try{
+                    parentSurvey = (Survey)question.getSurvey().fetchIfNeeded();
+                    parentSurvey.setPublished(true);
+                    parentSurvey.setPublicationDate(Calendar.getInstance().getTime());
+                }
+                catch(ParseException e){
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Error, couldn't publish Survey: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
 
                 question.saveInBackground(new SaveCallback() {
                     @Override

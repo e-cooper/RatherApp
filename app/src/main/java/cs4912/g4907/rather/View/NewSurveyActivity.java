@@ -81,7 +81,6 @@ public class NewSurveyActivity extends FragmentActivity implements DatePickerDia
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    setResult(RESULT_OK);
                     Intent i = new Intent(NewSurveyActivity.this, NewQuestionActivity.class);
                     i.putExtra("survey_id", survey.getObjectId());
                     startActivity(i);
@@ -105,11 +104,13 @@ public class NewSurveyActivity extends FragmentActivity implements DatePickerDia
 
     //Survey is saved only after expiration date is set
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year,month,day,23,59,59);
-        Date date = calendar.getTime();
-        survey.setExpirationDate(date);
-        saveSurvey(survey);
+        if(view.isShown()) { //bug fix for onDateSet getting called twice
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day, 23, 59, 59);
+            Date date = calendar.getTime();
+            survey.setExpirationDate(date);
+            saveSurvey(survey);
+        }
     }
 
     @Override
