@@ -19,6 +19,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import cs4912.g4907.rather.Model.ResponseSet;
@@ -32,6 +34,8 @@ public class SurveyDetailsActivity extends Activity {
     private TextView surveyNameTextView;
     private TextView surveyAuthorTextView;
     private TextView surveyPrivacyTextView;
+    private TextView surveyExpirationDateTextView;
+    private TextView surveyPublishedTextView;
     private String surveyListAdapterInfo;
 
     @Override
@@ -42,6 +46,8 @@ public class SurveyDetailsActivity extends Activity {
         surveyNameTextView = (TextView) findViewById(R.id.survey_details_name);
         surveyAuthorTextView = (TextView) findViewById(R.id.survey_details_author);
         surveyPrivacyTextView = (TextView) findViewById(R.id.survey_details_privacy);
+        surveyExpirationDateTextView = (TextView) findViewById(R.id.survey_details_expiration_date);
+        surveyPublishedTextView = (TextView) findViewById(R.id.survey_details_published);
 
         Intent i = getIntent();
         final String surveyId = i.getStringExtra("survey_id");
@@ -133,7 +139,6 @@ public class SurveyDetailsActivity extends Activity {
                                                      ParseQuery<ParseObject> query =
                                                              ParseQuery.getQuery("Question");
                                                      query.whereEqualTo("survey", object);
-                                                     questionCount[0] = 0;
                                                      try {
                                                          questionCount[0] = query.count();
                                                      } catch (ParseException err) {
@@ -174,7 +179,7 @@ public class SurveyDetailsActivity extends Activity {
             Intent i = new Intent(SurveyDetailsActivity.this, ResponseActivity.class);
             i.putExtra("response_set_id", responseSet.getObjectId());
             i.putExtra("survey_id", surveyId);
-            i.putExtra("question_order", 0);
+            i.putExtra("question_order", 1);
             i.putExtra("question_count", questionCount[0]);
             startActivity(i);
         } else {
@@ -200,5 +205,11 @@ public class SurveyDetailsActivity extends Activity {
         }
         surveyAuthorTextView.setText(author);
         surveyPrivacyTextView.setText(survey.getPrivacy()?"Public":"Private");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String expirationDateString = dateFormat.format(survey.getExpirationDate());
+        surveyExpirationDateTextView.setText(expirationDateString);
+
+        surveyPublishedTextView.setText(survey.getPublished()?"Yes":"No");
     }
 }

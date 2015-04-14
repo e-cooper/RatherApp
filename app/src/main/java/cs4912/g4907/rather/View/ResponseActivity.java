@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +124,7 @@ public class ResponseActivity extends Activity {
     private void setResponseQuestion() {
         Intent g = getIntent();
         final String surveyId = g.getStringExtra("survey_id");
-        final Number questionOrder = g.getIntExtra("question_order", 0);
+        final Number questionOrder = g.getIntExtra("question_order", 1);
         ParseQuery surveyQuery = new ParseQuery("Survey");
         surveyQuery.whereEqualTo("objectId", surveyId);
         surveyQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -167,9 +168,9 @@ public class ResponseActivity extends Activity {
                     final String responseSetId = g.getStringExtra("response_set_id");
                     final String surveyId = g.getStringExtra("survey_id");
                     final int[] questionOrder = new int[1];
-                    questionOrder[0] = g.getIntExtra("question_order", 0);
-                    final int questionCount = g.getIntExtra("questionCount", 0);
-                    if (questionOrder[0] > questionCount) {
+                    questionOrder[0] = g.getIntExtra("question_order", 1);
+                    final int questionCount = g.getIntExtra("question_count", 0);
+                    if (questionOrder[0] < questionCount) {
                         setResult(RESULT_OK);
                         Intent i = new Intent(ResponseActivity.this, ResponseActivity.class);
                         i.putExtra("response_set_id", responseSetId);
