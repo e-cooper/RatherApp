@@ -1,16 +1,11 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,22 +13,21 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import cs4912.g4907.rather.Model.Question;
 import cs4912.g4907.rather.Model.Response;
-import cs4912.g4907.rather.Model.ResponseSet;
-import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
+import cs4912.g4907.rather.Utilities.OnSwipeTouchListener;
 
 public class ResponseActivity extends Activity {
 
     private Response response;
     private boolean canAnswer = false;
+    private boolean answered = false;
 
     private TextView questionLabel;
     private Button yesButton, noButton, submitButton;
+    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +38,7 @@ public class ResponseActivity extends Activity {
         yesButton = (Button) findViewById(R.id.response_button_yes);
         noButton = (Button) findViewById(R.id.response_button_no);
         submitButton = (Button) findViewById(R.id.response_button_answer);
+        frameLayout = (FrameLayout) findViewById(R.id.fragmentContainer);
 
         response = new Response();
         Intent g = getIntent();
@@ -65,16 +60,20 @@ public class ResponseActivity extends Activity {
             }
         });
 
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        frameLayout.setOnTouchListener(new OnSwipeTouchListener(this) {
+            public void onSwipeTop() {
+                //Toast.makeText(ResponseActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeRight() {
                 if (canAnswer) {
                     response.setYesNo(true);
+                    answered = true;
                     Toast.makeText(
                             getApplicationContext(),
-                            R.string.response_recorded,
+                            R.string.response_yes_recorded,
                             Toast.LENGTH_SHORT
-                            ).show();
+                    ).show();
                 } else {
                     Toast.makeText(
                             getApplicationContext(),
@@ -83,16 +82,14 @@ public class ResponseActivity extends Activity {
                     ).show();
                 }
             }
-        });
 
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onSwipeLeft() {
                 if (canAnswer) {
                     response.setYesNo(false);
+                    answered = true;
                     Toast.makeText(
                             getApplicationContext(),
-                            R.string.response_recorded,
+                            R.string.response_no_recorded,
                             Toast.LENGTH_SHORT
                     ).show();
                 } else {
@@ -102,13 +99,17 @@ public class ResponseActivity extends Activity {
                             Toast.LENGTH_SHORT
                     ).show();
                 }
+            }
+
+            public void onSwipeBottom() {
+                //Toast.makeText(ResponseActivity.this, "bottom", Toast.LENGTH_SHORT).show();
             }
         });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (response.getYesNo() != null) {
+                if (answered) {
                     saveResponse();
                 } else {
                     Toast.makeText(
