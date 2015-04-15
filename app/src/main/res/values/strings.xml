@@ -37,7 +37,7 @@
     <string name="new_question_survey_name"></string>
     <string name="new_question_content">Question</string>
     <string name="new_question_add_button_label">Add Another Question</string>
-    <string name="new_question_finish_button_label">Finish Adding Questions</string>
+    <string name="new_question_finish_button_label">Add Question and Finish</string>
 
     <string name="title_activity_survey_details">Survey details</string>
     <string name="survey_details_name_label">"Survey Name: "</string>
@@ -52,6 +52,7 @@
     <string name="title_activity_response">ResponseActivity</string>
     <string name="response_set_complete">Thank you for completing the survey</string>
     <string name="response_select_answer">Please select an answer</string>
-    <string name="response_recorded">Response recorded</string>
+    <string name="response_yes_recorded">Yes</string>
+    <string name="response_no_recorded">No</string>
 
 </resources>

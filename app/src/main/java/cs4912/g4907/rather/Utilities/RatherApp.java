@@ -1,4 +1,4 @@
-package cs4912.g4907.rather.View;
+package cs4912.g4907.rather.Utilities;
 
 import android.app.Application;
 import com.parse.Parse;
