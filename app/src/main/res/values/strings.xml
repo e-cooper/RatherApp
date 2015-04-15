@@ -36,6 +36,8 @@
     <string name="title_activity_new_question">Create Question</string>
     <string name="new_question_survey_name"></string>
     <string name="new_question_content">Question</string>
+    <string name="new_question_choice_1">Choice 1</string>
+    <string name="new_question_choice_2">Choice 2</string>
     <string name="new_question_add_button_label">Add Another Question</string>
     <string name="new_question_finish_button_label">Finish Adding Questions</string>
 
@@ -45,6 +47,8 @@
     <string name="survey_details_privacy_label">"Privacy: "</string>
     <string name="survey_details_expiration_date_label">"Expiration Date: "</string>
     <string name="survey_details_published_label">"Published: "</string>
+    <string name="survey_details_response_count_label">"# of Responses: "</string>
+    <string name="survey_details_view_results_button">View Results</string>
     <string name="survey_no_questions">This survey has no questions</string>
 
     <string name="private_survey_password_message">"Enter Password: "</string>

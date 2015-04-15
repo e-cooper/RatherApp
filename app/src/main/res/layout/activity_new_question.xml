@@ -23,6 +23,20 @@
         android:ems="10"
         android:id="@+id/new_question_content_input"
         android:hint="@string/new_question_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/new_question_choice_1"
+        android:hint="@string/new_question_choice_1" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/new_question_choice_2"
+        android:hint="@string/new_question_choice_2" />
 
     <Button
         android:id="@+id/add_question"

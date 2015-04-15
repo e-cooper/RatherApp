@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,8 @@ public class SurveyDetailsActivity extends Activity {
     private TextView surveyPrivacyTextView;
     private TextView surveyExpirationDateTextView;
     private TextView surveyPublishedTextView;
+    private ViewGroup surveyResponseCountRow;
+    private Button viewResultsButton;
     private String surveyListAdapterInfo;
 
     @Override
@@ -48,6 +53,11 @@ public class SurveyDetailsActivity extends Activity {
         surveyPrivacyTextView = (TextView) findViewById(R.id.survey_details_privacy);
         surveyExpirationDateTextView = (TextView) findViewById(R.id.survey_details_expiration_date);
         surveyPublishedTextView = (TextView) findViewById(R.id.survey_details_published);
+        viewResultsButton = (Button) findViewById(R.id.survey_details_view_results_button);
+        surveyResponseCountRow = (ViewGroup) findViewById(R.id.survey_details_response_count_row);
+
+        viewResultsButton.setVisibility(View.GONE);
+        surveyResponseCountRow.setVisibility(View.GONE);
 
         Intent i = getIntent();
         final String surveyId = i.getStringExtra("survey_id");
@@ -66,6 +76,7 @@ public class SurveyDetailsActivity extends Activity {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     setFields((Survey)object);
+                    setViewButtonVisibility((Survey)object);
                 }
             }
         });
@@ -127,31 +138,31 @@ public class SurveyDetailsActivity extends Activity {
         surveyQuery.whereEqualTo("objectId", surveyId);
         surveyQuery.getFirstInBackground(new GetCallback<ParseObject>() {
                                              public void done(ParseObject object, ParseException e) {
-                                                 if (object == null) {
-                                                     finish();
-                                                     Toast.makeText(
-                                                             getApplicationContext(),
-                                                             "Error: " + e.getMessage(),
-                                                             Toast.LENGTH_SHORT).show();
-                                                 } else {
-                                                     responseSet.put("survey", object);
-                                                     // Number of questions
-                                                     ParseQuery<ParseObject> query =
-                                                             ParseQuery.getQuery("Question");
-                                                     query.whereEqualTo("survey", object);
-                                                     try {
-                                                         questionCount[0] = query.count();
-                                                     } catch (ParseException err) {
-                                                         Toast.makeText(
-                                                                 getApplicationContext(),
-                                                                 "Error counting: " +
-                                                                         err.getMessage(),
-                                                                 Toast.LENGTH_SHORT).show();
-                                                     }
-                                                     saveResponseSet();
-                                                 }
-                                             }
-                                         });
+                 if (object == null) {
+                     finish();
+                     Toast.makeText(
+                             getApplicationContext(),
+                             "Error: " + e.getMessage(),
+                             Toast.LENGTH_SHORT).show();
+                 } else {
+                     responseSet.put("survey", object);
+                     // Number of questions
+                     ParseQuery<ParseObject> query =
+                             ParseQuery.getQuery("Question");
+                     query.whereEqualTo("survey", object);
+                     try {
+                         questionCount[0] = query.count();
+                     } catch (ParseException err) {
+                         Toast.makeText(
+                                 getApplicationContext(),
+                                 "Error counting: " +
+                                         err.getMessage(),
+                                 Toast.LENGTH_SHORT).show();
+                     }
+                     saveResponseSet();
+                 }
+             }
+         });
     }
 
     private void saveResponseSet() {
@@ -211,5 +222,22 @@ public class SurveyDetailsActivity extends Activity {
         surveyExpirationDateTextView.setText(expirationDateString);
 
         surveyPublishedTextView.setText(survey.getPublished()?"Yes":"No");
+    }
+
+    private void setViewButtonVisibility(Survey survey){
+        if(surveyListAdapterInfo.equals("my_surveys") && survey.getAuthor().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+            ParseQuery responseSetQuery = new ParseQuery("ResponseSet");
+            responseSetQuery.whereEqualTo("survey",survey);
+            try {
+                if(responseSetQuery.count()!=0){
+                    TextView surveyResponseCount = (TextView)findViewById(R.id.survey_details_response_count);
+                    surveyResponseCount.setText(String.valueOf(responseSetQuery.count()));
+                    surveyResponseCountRow.setVisibility(View.VISIBLE);
+                    viewResultsButton.setVisibility(View.VISIBLE);
+                }
+            } catch (ParseException err) {
+                Log.d("Habibi","Query for response sets didn't find anything!");
+            }
+        }
     }
 }
