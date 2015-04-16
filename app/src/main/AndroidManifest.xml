@@ -8,11 +8,10 @@
 
     <uses-sdk
         android:targetSdkVersion="19" />
-
+    <!--android:icon="@mipmap/ic_launcher"-->
     <application
         android:name=".Utilities.RatherApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -21,7 +20,8 @@
 
         <activity
             android:name=".View.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:icon="@mipmap/rather_logo_icon" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.SurveyListActivity" >
+            android:name=".View.SurveyListActivity"
+            android:icon="@mipmap/surveys_icon" >
         </activity>
         <activity
             android:name="com.parse.ui.ParseLoginActivity"
@@ -59,27 +60,32 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".View.ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="@string/title_activity_profile"
+            android:icon="@mipmap/profile_icon" >
         </activity>
         <activity
             android:name=".View.NewSurveyActivity"
-            android:label="@string/title_activity_new_survey" >
+            android:label="@string/title_activity_new_survey"
+            android:icon="@mipmap/create_surveys_icon" >
         </activity>
         <activity
             android:name=".View.NewQuestionActivity"
-            android:label="@string/title_activity_new_question" >
+            android:label="@string/title_activity_new_question"
+            android:icon="@mipmap/create_question_icon">
         </activity>
         <activity
             android:name=".View.SurveyDetailsActivity"
             android:label="@string/title_activity_survey_details"
-            android:parentActivityName=".View.SurveyListActivity" >
+            android:parentActivityName=".View.SurveyListActivity"
+            android:icon="@mipmap/survey_details_icon">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cs4912.g4907.rather.View.SurveyListActivity" />
         </activity>
         <activity
             android:name=".View.ResponseActivity"
-            android:label="@string/title_activity_response" >
+            android:label="@string/title_activity_response"
+            android:icon="@mipmap/response_icon">
         </activity>
     </application>
 
