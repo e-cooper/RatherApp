@@ -40,11 +40,11 @@
     <string name="new_question_finish_button_label">Add Question and Finish</string>
 
     <string name="title_activity_survey_details">Survey details</string>
-    <string name="survey_details_name_label">"Survey Name: "</string>
-    <string name="survey_details_author_label">"Author: "</string>
-    <string name="survey_details_privacy_label">"Privacy: "</string>
-    <string name="survey_details_expiration_date_label">"Expiration Date: "</string>
-    <string name="survey_details_published_label">"Published: "</string>
+    <string name="survey_details_name_label">"Survey Name"</string>
+    <string name="survey_details_author_label">"Author"</string>
+    <string name="survey_details_privacy_label">"Privacy"</string>
+    <string name="survey_details_expiration_date_label">"Expiration Date"</string>
+    <string name="survey_details_published_label">"Published"</string>
     <string name="survey_no_questions">This survey has no questions</string>
 
     <string name="private_survey_password_message">"Enter Password: "</string>

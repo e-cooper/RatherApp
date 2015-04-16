@@ -2,8 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical"    >
+    android:orientation="vertical"
+    android:padding="20dp">
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -15,7 +21,20 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/survey_details_name_label"
-            android:id="@+id/survey_details_name_label" />
+            android:id="@+id/survey_details_name_label"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,14 +54,26 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/survey_details_author_label"
-            android:id="@+id/survey_details_author_label" />
+            android:id="@+id/survey_details_author_label"
+            android:textSize="20dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/survey_details_author" />
-
+            android:id="@+id/survey_details_author"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,14 +86,27 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/survey_details_privacy_label"
-            android:id="@+id/survey_details_privacy_label" />
+            android:id="@+id/survey_details_privacy_label"
+            android:textSize="20dp"
+            android:singleLine="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/survey_details_privacy" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -75,14 +119,26 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/survey_details_expiration_date_label"
-            android:id="@+id/survey_details_expiration_date_label" />
+            android:id="@+id/survey_details_expiration_date_label"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/survey_details_expiration_date" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -95,14 +151,25 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/survey_details_published_label"
-            android:id="@+id/survey_details_published_label" />
+            android:id="@+id/survey_details_published_label"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/survey_details_published" />
-
     </LinearLayout>
 
 </LinearLayout>

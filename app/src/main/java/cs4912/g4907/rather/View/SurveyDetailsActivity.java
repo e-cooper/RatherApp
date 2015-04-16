@@ -191,7 +191,7 @@ public class SurveyDetailsActivity extends Activity {
     }
 
     private void setFields(Survey survey){
-        surveyNameTextView.setText(survey.getTitle());
+        surveyNameTextView.setText("\t\t"+survey.getTitle());
         String author = "Error";
         try{
             author = survey.getAuthor().fetchIfNeeded().getString("name");
@@ -203,13 +203,13 @@ public class SurveyDetailsActivity extends Activity {
                     "Error: " + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
-        surveyAuthorTextView.setText(author);
-        surveyPrivacyTextView.setText(survey.getPrivacy()?"Public":"Private");
+        surveyAuthorTextView.setText("\t\t"+author);
+        surveyPrivacyTextView.setText(survey.getPrivacy()?"\t\tPublic":"\t\tPrivate");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String expirationDateString = dateFormat.format(survey.getExpirationDate());
-        surveyExpirationDateTextView.setText(expirationDateString);
+        surveyExpirationDateTextView.setText("\t\t"+expirationDateString);
 
-        surveyPublishedTextView.setText(survey.getPublished()?"Yes":"No");
+        surveyPublishedTextView.setText(survey.getPublished()?"\t\tYes":"\t\tNo");
     }
 }

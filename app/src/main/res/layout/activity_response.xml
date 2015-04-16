@@ -24,7 +24,9 @@
         android:layout_height="wrap_content"
         android:text="No"
         android:id="@+id/response_button_no"
-        android:layout_gravity="left|center_vertical" />
+        android:layout_gravity="left|center_vertical"
+        android:focusable="false"
+        android:longClickable="false" />
 
     <Button
         android:layout_width="wrap_content"
