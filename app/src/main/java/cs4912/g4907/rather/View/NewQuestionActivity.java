@@ -134,26 +134,37 @@ public class NewQuestionActivity extends Activity {
         addNewQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveQuestion(questionOrder[0],contentField.getText().toString(),"next");
+                Object[] areFieldsEmpty = checkFieldsEmpty();
+                if(checkFieldsEmpty()==null){
+                saveQuestion(questionOrder[0],contentField.getText().toString(),"next");}
+                else{
+                    Toast.makeText(getApplicationContext(), (String)areFieldsEmpty[1] , Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         finishNewQuestionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Object[] areFieldsEmpty = checkFieldsEmpty();
+                if(checkFieldsEmpty()==null) {
+                    Survey parentSurvey;
+                    try {
+                        parentSurvey = (Survey) question.getSurvey().fetchIfNeeded();
+                        parentSurvey.setPublished(true);
+                        parentSurvey.setPublicationDate(Calendar.getInstance().getTime());
+                    } catch (ParseException e) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Error, couldn't publish Survey: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    saveQuestion(questionOrder[0], contentField.getText().toString(), "finish");
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), (String)areFieldsEmpty[1] , Toast.LENGTH_SHORT).show();
+                }
                 //Publish the survey
-                Survey parentSurvey;
-                try{
-                    parentSurvey = (Survey)question.getSurvey().fetchIfNeeded();
-                    parentSurvey.setPublished(true);
-                    parentSurvey.setPublicationDate(Calendar.getInstance().getTime());
-                }
-                catch(ParseException e){
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Error, couldn't publish Survey: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }
-                saveQuestion(questionOrder[0],contentField.getText().toString(),"finish");
+
             }
         });
     }
@@ -268,4 +279,28 @@ public class NewQuestionActivity extends Activity {
             });
         }
     }
+
+
+
+    private Object[] checkFieldsEmpty(){
+        Boolean bool = false;
+        String message = "";
+        Object[] result = null;
+        if(contentField.getText().toString().length()==0){
+            bool = true;
+            message = "Enter a question";
+            result = new Object[]{bool,message};
+        }
+        switch (currentQuestionType){
+            case "Single Choice":
+                if(choice1Field.getText().toString().length()==0 || choice2Field.getText().toString().length()==0){
+                    bool = true;
+                    message = "Enter both choices";
+                    result = new Object[]{bool,message};
+                }
+                break;
+        }
+        return result;
+    }
+
 }

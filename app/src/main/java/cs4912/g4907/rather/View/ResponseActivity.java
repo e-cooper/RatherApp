@@ -222,7 +222,7 @@ public class ResponseActivity extends FragmentActivity {
             public void onPageSelected(int position) {
                 if (canAnswer) {
                     if (questionType.equals("Single Choice")) {
-                        response.setChoice(choices[position]);
+                        response.setChoice(choices[positionHack(position)]);
                     } else if (questionType.equals("Yes/No")) {
                         if (position == 0) {
                             response.setYesNo(true);
@@ -316,4 +316,8 @@ public class ResponseActivity extends FragmentActivity {
         }
     }
 
+    //hit screen wasn't being removed on time, so had to resort to this
+    private int positionHack(int pos){
+        return (pos==2)?1:pos;
+    }
 }
