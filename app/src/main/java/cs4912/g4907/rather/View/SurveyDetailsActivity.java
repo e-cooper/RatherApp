@@ -106,7 +106,7 @@ public class SurveyDetailsActivity extends Activity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("adapter_info",surveyListAdapterInfo);
                 setResult(RESULT_OK, returnIntent);
-                finish();
+                super.onBackPressed();
                 return true;
 
             case R.id.action_profile: {
