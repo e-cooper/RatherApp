@@ -58,5 +58,9 @@
     <string name="response_select_answer">Please select an answer</string>
     <string name="response_yes_recorded">Yes</string>
     <string name="response_no_recorded">No</string>
+    <string name="response_fragment">Something</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
