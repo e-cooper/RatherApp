@@ -24,4 +24,12 @@
         android:text="Answer"
         android:id="@+id/response_button_answer"
         android:layout_gravity="center_horizontal|bottom" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/response_textfield"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:enabled="false"/>
 </FrameLayout>

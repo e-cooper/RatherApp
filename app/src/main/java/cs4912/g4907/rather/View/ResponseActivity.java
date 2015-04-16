@@ -9,8 +9,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,7 @@ public class ResponseActivity extends FragmentActivity {
 
     private TextView questionLabel;
     private Button submitButton;
+    private EditText responseText;
     private List<Fragment> fragments;
     private List<String> colors;
     private ParseObject[] choices = new ParseObject[2];
@@ -54,6 +58,7 @@ public class ResponseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_response);
 
+        responseText = (EditText) findViewById(R.id.response_textfield);
         questionLabel = (TextView) findViewById(R.id.response_question_label);
         submitButton = (Button) findViewById(R.id.response_button_answer);
 
@@ -80,7 +85,20 @@ public class ResponseActivity extends FragmentActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (answered) {
+                if (questionType.equals("Text")) {
+                    String answer = responseText.getText().toString();
+                    if (answer.matches("")) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                R.string.response_text_answer,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        response.setText(answer);
+                        saveResponse();
+                    }
+                }
+                else if (answered) {
                     saveResponse();
                 } else {
                     Toast.makeText(
@@ -182,6 +200,10 @@ public class ResponseActivity extends FragmentActivity {
                                 }
                             }
                         });
+                    } else if (questionType.equals("Text")) {
+                        responseText.setVisibility(View.VISIBLE);
+                        responseText.setEnabled(true);
+                        responseText.requestFocus();
                     }
                 }
             }
@@ -208,7 +230,6 @@ public class ResponseActivity extends FragmentActivity {
                             response.setYesNo(false);
                         }
                     }
-
                 }
             }
 
