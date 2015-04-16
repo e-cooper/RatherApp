@@ -4,24 +4,28 @@
 
     <item
         android:id="@+id/action_profile"
-        android:orderInCategory="100"
+        android:orderInCategory="4"
         app:showAsAction="ifRoom"
         android:title="@string/action_profile"/>
     <item
         android:id="@+id/action_my_surveys"
+        android:orderInCategory="3"
         app:showAsAction="ifRoom"
         android:title="@string/action_my_surveys"/>
     <item
         android:id="@+id/action_available_surveys"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"
         android:title="@string/action_available_surveys"/>
     <item
         android:id="@+id/action_refresh"
+        android:orderInCategory="5"
         app:showAsAction="ifRoom"
         android:title="@string/action_refresh">
     </item>
     <item
         android:id="@+id/action_new"
+        android:orderInCategory="1"
         app:showAsAction="ifRoom"
         android:title="@string/action_new_survey">
     </item>

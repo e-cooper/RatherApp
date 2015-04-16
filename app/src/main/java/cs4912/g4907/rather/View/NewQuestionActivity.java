@@ -182,7 +182,6 @@ public class NewQuestionActivity extends Activity {
                             public void done(ParseException e) {
                             if (e == null) {
                                 saveChoices(question);
-                                setResult(RESULT_OK);
                                 finish();
                             } else {
                                 Toast.makeText(
@@ -199,7 +198,6 @@ public class NewQuestionActivity extends Activity {
                             public void done(ParseException e) {
                             if (e == null) {
                                 saveChoices(question);
-                                setResult(RESULT_OK);
                                 Intent i = new Intent(NewQuestionActivity.this, NewQuestionActivity.class);
                                 i.putExtra("survey_id", surveyId);
                                 i.putExtra("order_number", (int) order + 1);

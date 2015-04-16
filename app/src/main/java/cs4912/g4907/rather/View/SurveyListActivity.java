@@ -229,13 +229,11 @@ public class SurveyListActivity extends ListActivity {
                 }
             }
         }
+    }
 
-        //This doesn't seem to be working
-        if (resultCode == Activity.RESULT_OK) {
-            // If a new survey has been added, update
-            // the list of surveys
-            updateSurveyList();
-        }
+    public void onRestart(){
+        super.onRestart();
+        updateSurveyList();
     }
 
     // this method helps ensure that returning from survey details to survey list is seamless,
