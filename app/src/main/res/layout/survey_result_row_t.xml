@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/survey_result_row_padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Where do you want to go to formal?"
+        android:textSize="16sp"
+        android:layout_marginBottom="@dimen/survey_result_row_question_bottom_margin"
+        android:id="@+id/question_label_t" />
+
+    <TextView
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:text=""
+        android:id="@+id/question_id_hack_t"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:onClick="viewTextResults"
+        android:id="@+id/survey_result_view_text_results_button" />
+
+</LinearLayout>

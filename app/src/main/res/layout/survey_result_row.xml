@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/survey_result_row_padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Where do you want to go to formal?"
+        android:textSize="16sp"
+        android:layout_marginBottom="@dimen/survey_result_row_question_bottom_margin"
+        android:id="@+id/question_label" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textColor="#00AEDB"
+            android:id="@+id/left_label" />
+
+        <TextView
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:textColor="#F47835"
+            android:id="@+id/right_label" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/survey_result_row_graph_margin"
+        android:layout_marginBottom="@dimen/survey_result_row_graph_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/survey_result_row_graph_text_padding"
+            android:gravity="left"
+            android:background="#00AEDB"
+            android:id="@+id/left_share" />
+
+        <TextView
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/survey_result_row_graph_text_padding"
+            android:gravity="right"
+            android:background="#F47835"
+            android:id="@+id/right_share" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:id="@+id/count_breakdown_label" />
+
+</LinearLayout>

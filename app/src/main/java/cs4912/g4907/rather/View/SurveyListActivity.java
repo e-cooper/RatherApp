@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 
 import cs4912.g4907.rather.Model.Survey;
@@ -40,6 +42,19 @@ public class SurveyListActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getListView().setClickable(true);
+
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class
+                    .getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         availableSurveysAdapter = new ParseQueryAdapter<>(this, new ParseQueryAdapter.QueryFactory<Survey>() {
             public ParseQuery create() {
@@ -67,7 +82,7 @@ public class SurveyListActivity extends ListActivity {
     protected void onListItemClick ( ListView l, View v, int position, long id) {
 
         final Survey survey = mainAdapter.getItem(position);
-        if(!survey.getPrivacy()) {
+        if(adapterFlag.equals("available_surveys") && !survey.getPrivacy()) {
             LayoutInflater li = LayoutInflater.from(this);
             View promptsView = li.inflate(R.layout.private_survey_password_prompt, null);
 
@@ -233,6 +248,10 @@ public class SurveyListActivity extends ListActivity {
 
     public void onRestart(){
         super.onRestart();
+        updateSurveyList();
+    }
+    public void onResume() {
+        super.onResume();
         updateSurveyList();
     }
 

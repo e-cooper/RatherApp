@@ -2,4 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="survey_results_divider_height">1dp</dimen>
+
+    <dimen name="survey_result_row_graph_margin">2dp</dimen>
+    <dimen name="survey_result_row_graph_text_padding">2dp</dimen>
+    <dimen name="survey_result_row_padding">15dp</dimen>
+    <dimen name="survey_result_row_question_bottom_margin">8dp</dimen>
+    <dimen name="survey_result_row_choiceB_bottom_margin">15dp</dimen>
+
+    <dimen name="text_results_dialog_padding">5dp</dimen>
 </resources>

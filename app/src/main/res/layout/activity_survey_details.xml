@@ -130,6 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/survey_details_view_results_button"
+        android:onClick="viewResults"
         android:id="@+id/survey_details_view_results_button" />
 
 

@@ -24,7 +24,9 @@ import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cs4912.g4907.rather.Model.ResponseSet;
 import cs4912.g4907.rather.Model.Survey;
@@ -42,6 +44,7 @@ public class SurveyDetailsActivity extends Activity {
     private ViewGroup surveyResponseCountRow;
     private Button viewResultsButton;
     private String surveyListAdapterInfo;
+    private Survey concernedSurvey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +78,9 @@ public class SurveyDetailsActivity extends Activity {
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    setFields((Survey)object);
-                    setViewButtonVisibility((Survey)object);
+                    concernedSurvey = (Survey) object;
+                    setFields(concernedSurvey);
+                    setViewButtonVisibility(concernedSurvey);
                 }
             }
         });
@@ -93,7 +97,7 @@ public class SurveyDetailsActivity extends Activity {
     @Override
     public void onBackPressed() {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("adapter_info",surveyListAdapterInfo);
+        returnIntent.putExtra("adapter_info", surveyListAdapterInfo);
         setResult(RESULT_OK, returnIntent); //This will help us return to the proper screen on SurveyListActivity, either My Surveys or Available Surveys
         super.onBackPressed();
     }
@@ -137,32 +141,32 @@ public class SurveyDetailsActivity extends Activity {
         ParseQuery surveyQuery = new ParseQuery("Survey");
         surveyQuery.whereEqualTo("objectId", surveyId);
         surveyQuery.getFirstInBackground(new GetCallback<ParseObject>() {
-                                             public void done(ParseObject object, ParseException e) {
-                 if (object == null) {
-                     finish();
-                     Toast.makeText(
-                             getApplicationContext(),
-                             "Error: " + e.getMessage(),
-                             Toast.LENGTH_SHORT).show();
-                 } else {
-                     responseSet.put("survey", object);
-                     // Number of questions
-                     ParseQuery<ParseObject> query =
-                             ParseQuery.getQuery("Question");
-                     query.whereEqualTo("survey", object);
-                     try {
-                         questionCount[0] = query.count();
-                     } catch (ParseException err) {
-                         Toast.makeText(
-                                 getApplicationContext(),
-                                 "Error counting: " +
-                                         err.getMessage(),
-                                 Toast.LENGTH_SHORT).show();
-                     }
-                     saveResponseSet();
-                 }
-             }
-         });
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    finish();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    responseSet.put("survey", object);
+                    // Number of questions
+                    ParseQuery<ParseObject> query =
+                            ParseQuery.getQuery("Question");
+                    query.whereEqualTo("survey", object);
+                    try {
+                        questionCount[0] = query.count();
+                    } catch (ParseException err) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Error counting: " +
+                                        err.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    saveResponseSet();
+                }
+            }
+        });
     }
 
     private void saveResponseSet() {
@@ -239,5 +243,11 @@ public class SurveyDetailsActivity extends Activity {
                 Log.d("Habibi","Query for response sets didn't find anything!");
             }
         }
+    }
+
+    public void viewResults(View view){
+        Intent i = new Intent(this, SurveyResultsActivity.class);
+        i.putExtra("survey_id", concernedSurvey.getObjectId());
+        startActivity(i);
     }
 }
