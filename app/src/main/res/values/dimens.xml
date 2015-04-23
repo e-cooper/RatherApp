@@ -10,4 +10,6 @@
     <dimen name="survey_result_row_padding">15dp</dimen>
     <dimen name="survey_result_row_question_bottom_margin">8dp</dimen>
     <dimen name="survey_result_row_choiceB_bottom_margin">15dp</dimen>
+
+    <dimen name="text_results_dialog_padding">5dp</dimen>
 </resources>

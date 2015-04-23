@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:textStyle="bold"
+            android:textColor="#00AEDB"
             android:id="@+id/left_label_sc" />
 
         <TextView
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textStyle="bold"
+            android:textColor="#F47835"
             android:id="@+id/right_label_sc" />
 
     </LinearLayout>
@@ -60,7 +62,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/survey_result_row_graph_text_padding"
             android:gravity="left"
-            android:background="#0000FF"
+            android:background="#00AEDB"
             android:id="@+id/left_share_sc" />
 
         <TextView
@@ -69,7 +71,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/survey_result_row_graph_text_padding"
             android:gravity="right"
-            android:background="#FF0000"
+            android:background="#F47835"
             android:id="@+id/right_share_sc" />
 
     </LinearLayout>

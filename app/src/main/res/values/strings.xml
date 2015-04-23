@@ -62,7 +62,5 @@
     <string name="response_fragment">Something</string>
 
     <string name="title_activity_survey_results">Survey Results</string>
-    <item name="choiceA_label" type="id"/>
-    <item name="choiceB_label" type="id"/>
 
 </resources>

@@ -1,4 +1,4 @@
-package cs4912.g4907.rather.View;
+package cs4912.g4907.rather.Utilities;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -43,6 +44,8 @@ public class SurveyResultsAdapter extends ParseQueryAdapter<ParseObject>{
     public View getItemView(ParseObject object, View v, ViewGroup parent) {
         Question question = (Question)object;
         TextView questionLabel, leftGraphLabel, rightGraphLabel, leftGraphShare, rightGraphShare, countBreakdownLabel, choiceALabel, choiceBLabel;
+        Button viewTextResultsButton;
+        TextView questionIdField;
 
         String questionType = "123";
         try {
@@ -61,6 +64,7 @@ public class SurveyResultsAdapter extends ParseQueryAdapter<ParseObject>{
                 v = View.inflate(getContext(), R.layout.survey_result_row_sc, null);
                 break;
             case "Text":
+                v = View.inflate(getContext(), R.layout.survey_result_row_t, null);
                 break;
         }
 
@@ -86,8 +90,8 @@ public class SurveyResultsAdapter extends ParseQueryAdapter<ParseObject>{
                 int noCount = getQueryCount(ResponseQuery.whereEqualTo("yesNo",false));
                 setupGraph(leftGraphShare, rightGraphShare, yesCount, noCount, ResponseCount);
                 setCountBreakdownLabel(countBreakdownLabel,ResponseCount,yesCount,noCount);
-
                 break;
+
             case "Single Choice":
                 questionLabel = (TextView) v.findViewById(R.id.question_label_sc);
                 leftGraphLabel = (TextView) v.findViewById(R.id.left_label_sc);
@@ -108,7 +112,16 @@ public class SurveyResultsAdapter extends ParseQueryAdapter<ParseObject>{
                 setupGraph(leftGraphShare, rightGraphShare, choiceACount, choiceBCount, ResponseCount);
                 setCountBreakdownLabel(countBreakdownLabel,ResponseCount,choiceACount,choiceBCount);
                 break;
+
             case "Text":
+                questionLabel = (TextView) v.findViewById(R.id.question_label_t);
+                viewTextResultsButton = (Button) v.findViewById(R.id.survey_result_view_text_results_button);
+                questionIdField = (TextView) v.findViewById(R.id.question_id_hack_t);
+
+                questionLabel.setText(String.valueOf(question.getOrder())+". "+question.getContent());
+                viewTextResultsButton.setText("View " + ResponseCount + " Results");
+                questionIdField.setText(question.getObjectId());
+
                 break;
         }
 

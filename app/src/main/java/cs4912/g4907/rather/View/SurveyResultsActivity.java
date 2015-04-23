@@ -1,37 +1,33 @@
 package cs4912.g4907.rather.View;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import cs4912.g4907.rather.Model.Question;
-import cs4912.g4907.rather.Model.QuestionType;
 import cs4912.g4907.rather.Model.Response;
-import cs4912.g4907.rather.Model.ResponseSet;
 import cs4912.g4907.rather.Model.Survey;
 import cs4912.g4907.rather.R;
+import cs4912.g4907.rather.Utilities.SurveyResultsAdapter;
 
 public class SurveyResultsActivity extends Activity {
 
@@ -59,14 +55,11 @@ public class SurveyResultsActivity extends Activity {
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.d("onCreate","finds survey");
                     concernedSurvey = (Survey) object;
                     setupRows(concernedSurvey);
                 }
             }
         });
-
-
     }
 
     private void setupRows(Survey s) {
@@ -94,4 +87,43 @@ public class SurveyResultsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void viewTextResults(View view){
+        LinearLayout parent = (LinearLayout)view.getParent();
+        String questionID = ((TextView)parent.findViewById(R.id.question_id_hack_t)).getText().toString(); //Fetch relevant question id from our hacky phantom textview
+        ParseQuery<Question> query = ParseQuery.getQuery("Question");
+        query.getInBackground(questionID, new GetCallback<Question>() {
+            public void done(Question q, ParseException e) {
+                if (e == null) {
+                    ParseQueryAdapter<Response> textResultsAdapter = getTextResultQueryAdapter(q);
+                    Log.e("adapter debugging", String.valueOf(textResultsAdapter.getCount()));
+
+                    Dialog dialog = new Dialog(SurveyResultsActivity.this);
+                    dialog.setContentView(R.layout.text_results_dialog);
+                    ListView textResults = (ListView) dialog.findViewById(R.id.text_results_listview);
+                    textResults.setAdapter(textResultsAdapter);
+                    dialog.setCancelable(true);
+                    dialog.setTitle(q.getContent());
+                    dialog.show();
+
+                } else {
+                    Log.e("viewTextResults", "question query failed");
+                }
+            }
+        });
+    }
+
+    private ParseQueryAdapter<Response> getTextResultQueryAdapter(Question q){
+        final Question concernedQuestion = q;
+        ParseQueryAdapter<Response> adapter = new ParseQueryAdapter<Response>(this,
+                new ParseQueryAdapter.QueryFactory<Response>() {
+                    public ParseQuery create() {
+                        ParseQuery query = new ParseQuery("Response");
+                        query.whereEqualTo("question", concernedQuestion);
+                        return query;
+                    }
+                }
+        );
+        adapter.setTextKey("text");
+        return adapter;
+    }
 }
