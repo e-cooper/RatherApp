@@ -117,11 +117,6 @@ public class SurveyDetailsActivity extends Activity {
                 viewProfile();
                 break;
             }
-
-            case R.id.action_respond: {
-                newResponse();
-                break;
-            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +127,7 @@ public class SurveyDetailsActivity extends Activity {
         startActivity(i);
     }
 
-    private void newResponse() {
+    public void newResponse(View v) {
         responseSet = new ResponseSet();
         responseSet.setComplete(false);
         responseSet.setUser(ParseUser.getCurrentUser());

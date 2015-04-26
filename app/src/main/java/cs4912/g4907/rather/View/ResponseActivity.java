@@ -64,6 +64,7 @@ public class ResponseActivity extends FragmentActivity {
 
         response = new Response();
         Intent g = getIntent();
+        setTitle("Question " + String.valueOf(g.getIntExtra("question_order",999)) + "/" + String.valueOf(g.getIntExtra("question_count",999)));
         final String responseSetId = g.getStringExtra("response_set_id");
         ParseQuery responseSetQuery = new ParseQuery("ResponseSet");
         responseSetQuery.whereEqualTo("objectId", responseSetId);
