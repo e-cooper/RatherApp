@@ -7,10 +7,5 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:title="@string/action_profile"/>
-    <item
-        android:id="@+id/action_respond"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_respond">
-    </item>
 
 </menu>

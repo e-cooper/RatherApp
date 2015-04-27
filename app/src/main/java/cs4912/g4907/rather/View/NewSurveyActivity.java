@@ -58,19 +58,30 @@ public class NewSurveyActivity extends FragmentActivity implements DatePickerDia
             @Override
             public void onClick(View v) {
                 survey.setAuthor(ParseUser.getCurrentUser());
-                survey.setTitle(nameField.getText().toString()); //Needs input validation
                 survey.setPrivacy(privacyCheckbox.isChecked());
                 if (!privacyCheckbox.isChecked()) {
                     if(passwordField.getText().toString().length()!=0) {
                         survey.setPassword(passwordField.getText().toString());
-                        expiryDateDialog(); //Once ready, this initiates the expiration date dialog
+                        if(nameField.getText().toString().length()!=0){
+                            survey.setTitle(nameField.getText().toString()); //Needs input validation
+                            expiryDateDialog(); //Once ready, this initiates the expiration date dialog
+                        }
+                        else{
+                            Toast.makeText(NewSurveyActivity.this, "Please enter a name for your survey" , Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
                         Toast.makeText(NewSurveyActivity.this, "Please enter a password" , Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    expiryDateDialog(); //Once ready, this initiates the expiration date dialog
+                    if(nameField.getText().toString().length()!=0){
+                        survey.setTitle(nameField.getText().toString()); //Needs input validation
+                        expiryDateDialog(); //Once ready, this initiates the expiration date dialog
+                    }
+                    else{
+                        Toast.makeText(NewSurveyActivity.this, "Please enter a name for your survey" , Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
