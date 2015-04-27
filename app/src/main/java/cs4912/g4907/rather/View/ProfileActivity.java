@@ -43,6 +43,12 @@ public class ProfileActivity extends Activity {
                 if (currentUser != null) {
                     // User clicked to log out.
                     ParseUser.logOut();
+                    com.facebook.Session fbs = com.facebook.Session.getActiveSession();
+                    if (fbs == null) {
+                        fbs = new com.facebook.Session(ProfileActivity.this);
+                        com.facebook.Session.setActiveSession(fbs);
+                    }
+                    fbs.closeAndClearTokenInformation();
                     currentUser = null;
                     Intent i = new Intent(ProfileActivity.this, LoginActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

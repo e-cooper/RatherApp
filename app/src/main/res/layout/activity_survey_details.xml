@@ -126,12 +126,27 @@
 
     </LinearLayout>
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/survey_details_view_results_button"
-        android:onClick="viewResults"
-        android:id="@+id/survey_details_view_results_button" />
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_details_respond_button"
+            android:id="@+id/survey_details_respond_button"
+            android:onClick="newResponse"
+            android:layout_alignParentBottom="true"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_details_view_results_button"
+            android:onClick="viewResults"
+            android:id="@+id/survey_details_view_results_button"
+            android:layout_above="@id/survey_details_respond_button" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>
